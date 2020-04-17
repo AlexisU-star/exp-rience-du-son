@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>titre de la page</title>
+    <script src="jspsych-6.1.0/jspsych.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response.js"></script>
+    <link
+      href="jspsych-6.1.0/css/jspsych.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body></body>
+  <script>
+    /* create timeline */
+    var timeline = [];
+
+    /* define welcome message trial */
+    var welcome = {
+      type: "html-button-response",
+      stimulus: "Welcome to the experiment. Press any key to begin.",
+      choices: ["Continue"]
+
+    };
+    timeline.push(welcome);
+
+    var pre_audio = {
+      type: "html-button-response",
+      stimulus:
+        "Recent versions of Chrome require the user to interact with a page before it can play audio. " +
+        "Clicking the button below counts as an interaction. Be aware of this when planning audio experiments if " +
+        "you want the first trial to include audio.",
+      choices: ["Continue"]
+    };
+    timeline.push(pre_audio);
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-button-response",
+      stimulus:
+        "<p>Dans cette expérience, des sons vont être présentés." +
+        "</p><p>Vous devrez choisir entre 5 émotions différentes :</p>" +
+        "<p>Plaisir</p>" +
+        "<p>Peur</p>" +
+        "<p>Neutre</p>" +
+        "<p>Colère</p>" +
+        "<p>Dégoût</p>" +
+        "<p>Vous devrez choisir l'émotion que vous percevez.</p>",
+      choices: ["Continue"]
+
+    };
+    timeline.push(instructions);
+
+    var test_stimuli1 = [
+      {
+        audio: "sound/53_fear.wav",
+        data: { test_part: "test", correct_response: "fear" }
+      },
+      {
+        audio: "sound/06_fear.wav",
+        data: { test_part: "test", correct_response: "fear" }
+      },
+    ];
+
+    var test1 = {
+
+      type: "audio-button-response",
+      stimulus: jsPsych.timelineVariable("audio"),
+      choices: ["Plaisir", "Peur", "neutre", "Colère", "Dégoût"],
+      data: jsPsych.timelineVariable("data"),
+      trial_ends_after_audio: false
+    };
+
+    var test_procedure1 = {
+
+      timeline: [test1],
+      timeline_variables: test_stimuli1,
+      randomize_order: true
+    };
+
+///////////////////////////////////////////////////////////////////////
+    var test_stimuli2 = [
+      {
+        audio: "sound/60_disgust.wav",
+        data: { test_part: "test", correct_response: "disgust" }
+      },
+      {
+        audio: "sound/06_disgust.wav",
+        data: { test_part: "test", correct_response: "disgust" }
+      },
+    ];
+
+    var test2 = {
+
+      type: "audio-button-response",
+      stimulus: jsPsych.timelineVariable("audio"),
+      choices: ["Plaisir", "Peur", "neutre", "Colère", "Dégoût"],
+      data: jsPsych.timelineVariable("data"),
+      trial_ends_after_audio: false
+    };
+
+    var test_procedure2 = {
+
+      timeline: [test2],
+      timeline_variables: test_stimuli2,
+      randomize_order: true
+    };
+/////////////////////////////////////////////////////////////////////////////////
+    var test_stimuli3 = [
+      {
+        audio: "sound/58_pleasure.wav",
+        data: { test_part: "test", correct_response: "disgust" }
+      },
+      {
+        audio: "sound/59_pleasure.wav",
+        data: { test_part: "test", correct_response: "disgust" }
+      },
+    ];
+
+    var test3 = {
+
+      type: "audio-button-response",
+      stimulus: jsPsych.timelineVariable("audio"),
+      choices: ["Plaisir", "Peur", "neutre", "Colère", "Dégoût"],
+      data: jsPsych.timelineVariable("data"),
+      trial_ends_after_audio: false
+    };
+
+    var test_procedure3 = {
+
+      timeline: [test3],
+      timeline_variables: test_stimuli3,
+      randomize_order: true
+    };
+
+/////////////////////////////////////////////////////////////////////////////////
+var test_stimuli4 = [
+      {
+        audio: "sound/42_anger.wav",
+        data: { test_part: "test", correct_response: "anger" }
+      },
+      {
+        audio: "sound/46_anger.wav",
+        data: { test_part: "test", correct_response: "anger" }
+      },
+    ];
+
+    var test4 = {
+
+      type: "audio-button-response",
+      stimulus: jsPsych.timelineVariable("audio"),
+      choices: ["Plaisir", "Peur", "neutre", "Colère", "Dégoût"],
+      data: jsPsych.timelineVariable("data"),
+      trial_ends_after_audio: false
+    };
+
+    var test_procedure4 = {
+
+      timeline: [test4],
+      timeline_variables: test_stimuli4,
+      randomize_order: true
+    };
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    var test_stimuli5 = [
+      {
+        audio: "sound/58_neutral.wav",
+        data: { test_part: "test", correct_response: "neutral" }
+      },
+      {
+        audio: "sound/59_neutral.wav",
+        data: { test_part: "test", correct_response: "neutral" }
+      },
+    ];
+
+    var test5 = {
+
+      type: "audio-button-response",
+      stimulus: jsPsych.timelineVariable("audio"),
+      choices: ["Plaisir", "Peur", "neutre", "Colère", "Dégoût"],
+      data: jsPsych.timelineVariable("data"),
+      trial_ends_after_audio: false
+    };
+
+    var test_procedure5 = {
+
+      timeline: [test5],
+      timeline_variables: test_stimuli5,
+      randomize_order: true
+    };
+
+    // make test_procedure2 and test_procedure3
+
+    const procedures = [test_procedure1, test_procedure2, test_procedure3, test_procedure4, test_procedure5]
+
+    const random_number = Math.floor(Math.random() * 5) + 1 // random number, either 1, 2, or 3
+
+    const procedure_for_this_experiment = procedures[random_number - 1] // minus one because JS is 0 indexed
+
+    timeline.push(procedure_for_this_experiment);
+
+    jsPsych.init({
+      timeline: timeline,
+      use_webaudio: false,
+      preload_audio: [
+        "sound/53_fear.wav",
+        "sound/06_fear.wav",
+        "sound/60_disgust.wav",
+        "sound/06_disgust.wav",
+        "sound/58_pleasure.wav",
+        "sound/59_pleasure.wav",
+        "sound/42_anger.wav",
+        "sound/46_anger.wav",
+        "sound/58_neutral.wav",
+        "sound/59_neutral.wav",
+      ],
+      on_finish: function() {
+        jsPsych.data.displayData();
+      },
+      default_iti: 250
+    });
+  </script>
+</html>
